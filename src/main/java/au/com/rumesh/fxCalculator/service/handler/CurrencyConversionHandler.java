@@ -42,9 +42,9 @@ public interface CurrencyConversionHandler {
      */
     static CurrencyConversionHandler invertConversion(){
         return (currencyConverter, rate) -> {
-            ConversionMatrix intermediateConversionMatrix = ConversionMatrix.getConversionMatrix(currencyConverter.getConversionMatrix().getTermCurrency(),
-                    currencyConverter.getConversionMatrix().getBaseCurrency());
-            currencyConverter.setConversionMatrix(intermediateConversionMatrix);
+            ConversionMatrix intermediateConversionMatrix = ConversionMatrix.getConversionMatrix(currencyConverter.getCurrentConversionMatrix().getTermCurrency(),
+                    currencyConverter.getCurrentConversionMatrix().getBaseCurrency());
+            currencyConverter.setCurrentConversionMatrix(intermediateConversionMatrix);
 
             ExchangeRate exchangeRate = currencyConverter.getExchangeRate();
             return rate.multiply(BigDecimal.ONE.divide(exchangeRate.getRate(), MathContext.DECIMAL128));
@@ -58,16 +58,16 @@ public interface CurrencyConversionHandler {
      */
     static CurrencyConversionHandler crossViaConversion(){
         return (currencyConverter, rate) -> {
-            ConversionMatrix originalConversionMatrix = currencyConverter.getConversionMatrix();
+            ConversionMatrix originalConversionMatrix = currencyConverter.getCurrentConversionMatrix();
 
             ConversionMatrix intermediateConversionMatrix = ConversionMatrix.getConversionMatrix(originalConversionMatrix.getBaseCurrency(),
                     originalConversionMatrix.getCrossViaCurrency());
-            currencyConverter.setConversionMatrix(intermediateConversionMatrix);
+            currencyConverter.setCurrentConversionMatrix(intermediateConversionMatrix);
 
             BigDecimal intermediateRate = rate.multiply(ConversionResourceLocator.getConverter(intermediateConversionMatrix.getConversionType()).convert(currencyConverter, BigDecimal.ONE));
 
             intermediateConversionMatrix = ConversionMatrix.getConversionMatrix(originalConversionMatrix.getCrossViaCurrency(), originalConversionMatrix.getTermCurrency());
-            currencyConverter.setConversionMatrix(intermediateConversionMatrix);
+            currencyConverter.setCurrentConversionMatrix(intermediateConversionMatrix);
 
             return ConversionResourceLocator.getConverter(intermediateConversionMatrix.getConversionType()).convert(currencyConverter, intermediateRate);
         };

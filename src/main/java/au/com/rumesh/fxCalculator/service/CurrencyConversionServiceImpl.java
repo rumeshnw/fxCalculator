@@ -35,7 +35,8 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService{
 
     private BigDecimal getExchangeRate(String baseCurrency, String termCurrency){
         ConversionMatrix conversionMatrix = ConversionMatrix.getConversionMatrix(baseCurrency, termCurrency);
-        currencyConverter.setConversionMatrix(conversionMatrix);
+        currencyConverter.setOriginalConversionMatrix(conversionMatrix);
+        currencyConverter.setCurrentConversionMatrix(conversionMatrix);
 
         return ConversionResourceLocator.getConverter(conversionMatrix.getConversionType()).convert(currencyConverter, BigDecimal.ONE);
     }

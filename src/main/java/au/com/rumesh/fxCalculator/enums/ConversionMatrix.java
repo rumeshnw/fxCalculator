@@ -46,7 +46,7 @@ public enum ConversionMatrix {
     CNY_JPY("CNY", "JPY", "USD", ConversionType.CROSS_VIA_CURRENCY),
     CNY_NOK("CNY", "NOK", "USD", ConversionType.CROSS_VIA_CURRENCY),
     CNY_NZD("CNY", "NZD", "USD", ConversionType.CROSS_VIA_CURRENCY),
-    CNY_USD("CNY", "USD", null, ConversionType.DIRECT_FEED),
+    CNY_USD("CNY", "USD", null, ConversionType.INVERTED),
 
     //Base currency CZK to other currencies
     CZK_AUD("CZK", "AUD", "USD", ConversionType.CROSS_VIA_CURRENCY),

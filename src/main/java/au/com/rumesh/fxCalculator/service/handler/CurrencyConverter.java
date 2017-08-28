@@ -19,26 +19,36 @@ public class CurrencyConverter {
     @Autowired
     private CurrencyRepository currencyRepository;
 
-    private ConversionMatrix conversionMatrix;
+    private ConversionMatrix originalConversionMatrix;
 
-    public ConversionMatrix getConversionMatrix() {
-        return conversionMatrix;
+    private ConversionMatrix currentConversionMatrix;
+
+    public ConversionMatrix getOriginalConversionMatrix() {
+        return originalConversionMatrix;
     }
 
-    public void setConversionMatrix(ConversionMatrix conversionMatrix) {
-        this.conversionMatrix = conversionMatrix;
+    public void setOriginalConversionMatrix(ConversionMatrix originalConversionMatrix) {
+        this.originalConversionMatrix = originalConversionMatrix;
+    }
+
+    public ConversionMatrix getCurrentConversionMatrix() {
+        return currentConversionMatrix;
+    }
+
+    public void setCurrentConversionMatrix(ConversionMatrix currentConversionMatrix) {
+        this.currentConversionMatrix = currentConversionMatrix;
     }
 
 
     public ExchangeRate getExchangeRate() {
-        Currency baseCurrency = currencyRepository.findByCode(conversionMatrix.getBaseCurrency());
+        Currency baseCurrency = currencyRepository.findByCode(currentConversionMatrix.getBaseCurrency());
         Assert.notNull(baseCurrency, "Unable to find base currency");
 
-        Currency termCurrency = currencyRepository.findByCode(conversionMatrix.getTermCurrency());
+        Currency termCurrency = currencyRepository.findByCode(currentConversionMatrix.getTermCurrency());
         Assert.notNull(termCurrency, "Unable to find term currency");
 
         ExchangeRate exchangeRate = exchangeRateRepository.findByBaseCurrencyAndTermCurrency(baseCurrency, termCurrency);
-        Assert.notNull(exchangeRate, String.format("Unable to find exchange rate for %1s/%2s", conversionMatrix.getBaseCurrency(), conversionMatrix.getTermCurrency()));
+        Assert.notNull(exchangeRate, String.format("Unable to find exchange rate for %1s/%2s", originalConversionMatrix.getBaseCurrency(), originalConversionMatrix.getTermCurrency()));
 
         return exchangeRate;
     }
