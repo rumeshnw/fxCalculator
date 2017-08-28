@@ -111,7 +111,7 @@ public enum ConversionMatrix {
     JPY_JPY("JPY", "JPY", null, ConversionType.UNITY),
     JPY_NOK("JPY", "NOK", "USD", ConversionType.CROSS_VIA_CURRENCY),
     JPY_NZD("JPY", "NZD", "USD", ConversionType.CROSS_VIA_CURRENCY),
-    JPY_USD("JPY", "USD", null, ConversionType.DIRECT_FEED),
+    JPY_USD("JPY", "USD", null, ConversionType.INVERTED),
 
     //Base currency NOK to other currencies
     NOK_AUD("NOK", "AUD", "USD", ConversionType.CROSS_VIA_CURRENCY),
