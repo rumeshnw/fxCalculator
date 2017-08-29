@@ -30,7 +30,11 @@ public interface Console {
     }
 
     default String trimUserInput(Scanner scanner){
-        return StringUtils.trimToNull(scanner.nextLine());
+        return trim(scanner.nextLine());
+    }
+
+    default String trim(String value){
+        return StringUtils.trimToEmpty(value);
     }
 
     default String handleException(Exception e) {

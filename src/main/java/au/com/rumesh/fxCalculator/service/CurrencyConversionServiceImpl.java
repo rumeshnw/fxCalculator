@@ -3,7 +3,7 @@ package au.com.rumesh.fxCalculator.service;
 import au.com.rumesh.fxCalculator.config.ConversionResourceLocator;
 import au.com.rumesh.fxCalculator.enums.ConversionMatrix;
 import au.com.rumesh.fxCalculator.repository.CurrencyRepository;
-import au.com.rumesh.fxCalculator.service.handler.CurrencyConverter;
+import au.com.rumesh.fxCalculator.command.CurrencyConverterCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
@@ -17,7 +17,7 @@ import java.math.RoundingMode;
 public class CurrencyConversionServiceImpl implements CurrencyConversionService{
 
     @Autowired
-    private CurrencyConverter currencyConverter;
+    private CurrencyConverterCommand currencyConverterCommand;
 
     @Autowired
     private CurrencyRepository currencyRepository;
@@ -30,14 +30,14 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService{
 
         BigDecimal exchangeRate = getExchangeRate(baseCurrency, termCurrency);
 
-        return amount.multiply(exchangeRate).setScale(currencyRepository.findByCode(baseCurrency).getDecimalPlaces(), RoundingMode.HALF_EVEN);
+        return amount.multiply(exchangeRate).setScale(currencyRepository.findByCode(termCurrency).getDecimalPlaces(), RoundingMode.HALF_EVEN);
     }
 
     private BigDecimal getExchangeRate(String baseCurrency, String termCurrency){
         ConversionMatrix conversionMatrix = ConversionMatrix.getConversionMatrix(baseCurrency, termCurrency);
-        currencyConverter.setOriginalConversionMatrix(conversionMatrix);
-        currencyConverter.setCurrentConversionMatrix(conversionMatrix);
+        currencyConverterCommand.setOriginalConversionMatrix(conversionMatrix);
+        currencyConverterCommand.setCurrentConversionMatrix(conversionMatrix);
 
-        return ConversionResourceLocator.getConverter(conversionMatrix.getConversionType()).convert(currencyConverter, BigDecimal.ONE);
+        return ConversionResourceLocator.getConverter(conversionMatrix.getConversionType()).convert(currencyConverterCommand, BigDecimal.ONE);
     }
 }

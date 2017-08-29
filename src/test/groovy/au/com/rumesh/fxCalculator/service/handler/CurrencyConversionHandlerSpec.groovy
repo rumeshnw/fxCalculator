@@ -1,7 +1,9 @@
 package au.com.rumesh.fxCalculator.service.handler
 
+import au.com.rumesh.fxCalculator.command.CurrencyConverterCommand
 import au.com.rumesh.fxCalculator.domain.ExchangeRate
 import au.com.rumesh.fxCalculator.enums.ConversionMatrix
+import spock.lang.Ignore
 import spock.lang.Specification
 
 import java.math.MathContext
@@ -10,7 +12,7 @@ class CurrencyConversionHandlerSpec extends Specification {
 
     def "test directConversion, should apply direct conversion strategy and return exchange rate for base/term currency combination"(){
         given:
-        CurrencyConverter currencyConverter = Mock(CurrencyConverter){
+        CurrencyConverterCommand currencyConverter = Mock(CurrencyConverterCommand){
             1 * getExchangeRate() >> new ExchangeRate(rate: new BigDecimal("0.8371"))
         }
 
@@ -27,7 +29,7 @@ class CurrencyConversionHandlerSpec extends Specification {
 
     def "test unityConversion, should apply unity conversion strategy and return exchange rate for base/term currency combination"(){
         given:
-        CurrencyConverter currencyConverter = Mock(CurrencyConverter){
+        CurrencyConverterCommand currencyConverter = Mock(CurrencyConverterCommand){
             0 * getExchangeRate() >> new ExchangeRate(rate: new BigDecimal("1"))
         }
 
@@ -40,7 +42,7 @@ class CurrencyConversionHandlerSpec extends Specification {
 
     def "test invertConversion, should apply invert conversion strategy and return exchange rate for base/term currency combination"(){
         given:
-        CurrencyConverter currencyConverter = Mock(CurrencyConverter){
+        CurrencyConverterCommand currencyConverter = Mock(CurrencyConverterCommand){
             1 * getExchangeRate() >> new ExchangeRate(rate: new BigDecimal("0.8371"))
 
             2 * getCurrentConversionMatrix() >> ConversionMatrix.USD_AUD

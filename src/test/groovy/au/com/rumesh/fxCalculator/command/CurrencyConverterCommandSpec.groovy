@@ -1,4 +1,4 @@
-package au.com.rumesh.fxCalculator.service.handler
+package au.com.rumesh.fxCalculator.command
 
 import au.com.rumesh.fxCalculator.domain.ExchangeRate
 import au.com.rumesh.fxCalculator.enums.ConversionMatrix
@@ -8,12 +8,12 @@ import au.com.rumesh.fxCalculator.repository.ExchangeRateRepository
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class CurrencyConverterSpec extends Specification {
+class CurrencyConverterCommandSpec extends Specification {
 
     @Unroll
     def "test getExchangeRate, should throw an exception when base currency is #baseCurrency and term currency is #termCurrency"(){
         given:
-        CurrencyConverter currencyConverter = new CurrencyConverter(currentConversionMatrix: ConversionMatrix.AUD_CAD)
+        CurrencyConverterCommand currencyConverter = new CurrencyConverterCommand(currentConversionMatrix: ConversionMatrix.AUD_CAD)
 
         and:
         currencyConverter.currencyRepository = Mock(CurrencyRepository){
@@ -37,7 +37,7 @@ class CurrencyConverterSpec extends Specification {
 
     def "test getExchangeRate, should throw an exception when exchange rate not exists for base/term currency combination"(){
         given:
-        CurrencyConverter currencyConverter = new CurrencyConverter(originalConversionMatrix: ConversionMatrix.AUD_CAD, currentConversionMatrix: ConversionMatrix.AUD_USD)
+        CurrencyConverterCommand currencyConverter = new CurrencyConverterCommand(originalConversionMatrix: ConversionMatrix.AUD_CAD, currentConversionMatrix: ConversionMatrix.AUD_USD)
 
         and:
         currencyConverter.currencyRepository = Mock(CurrencyRepository){
@@ -59,7 +59,7 @@ class CurrencyConverterSpec extends Specification {
 
     def "test getExchangeRate, should return ExchangeRate instance when exchange rate exists for given base/term currency combination"(){
         given:
-        CurrencyConverter currencyConverter = new CurrencyConverter(originalConversionMatrix: ConversionMatrix.AUD_CAD, currentConversionMatrix: ConversionMatrix.AUD_USD)
+        CurrencyConverterCommand currencyConverter = new CurrencyConverterCommand(originalConversionMatrix: ConversionMatrix.AUD_CAD, currentConversionMatrix: ConversionMatrix.AUD_USD)
 
         and:
         ExchangeRate exchangeRate = new ExchangeRate(baseCurrency: new Currency(code: ConversionMatrix.AUD_USD.baseCurrency), termCurrency: new Currency(code: ConversionMatrix.AUD_USD.termCurrency), rate: 0.8371)

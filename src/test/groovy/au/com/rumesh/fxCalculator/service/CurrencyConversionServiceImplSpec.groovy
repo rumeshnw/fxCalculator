@@ -4,8 +4,7 @@ import au.com.rumesh.fxCalculator.domain.Currency
 import au.com.rumesh.fxCalculator.domain.ExchangeRate
 import au.com.rumesh.fxCalculator.enums.ConversionMatrix
 import au.com.rumesh.fxCalculator.repository.CurrencyRepository
-import au.com.rumesh.fxCalculator.service.handler.CurrencyConversionHandler
-import au.com.rumesh.fxCalculator.service.handler.CurrencyConverter
+import au.com.rumesh.fxCalculator.command.CurrencyConverterCommand
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -13,7 +12,7 @@ class CurrencyConversionServiceImplSpec extends Specification {
 
     CurrencyConversionServiceImpl currencyConversionService
     def setup(){
-        currencyConversionService = new CurrencyConversionServiceImpl(currencyConverter: new CurrencyConverter())
+        currencyConversionService = new CurrencyConversionServiceImpl(currencyConverterCommand: new CurrencyConverterCommand())
     }
 
     @Unroll
@@ -35,11 +34,11 @@ class CurrencyConversionServiceImplSpec extends Specification {
     def "test convertCurrency, should return converted amount when all parameters are valid and exchange rate exists for given base/term currency combination"(){
         given:
         currencyConversionService.currencyRepository = Mock(CurrencyRepository){
-            1 * findByCode(_ as String) >> new Currency(code: "AUD", decimalPlaces: 2)
+            1 * findByCode(_ as String) >> new Currency(code: "USD", decimalPlaces: 2)
         }
 
         and:
-        currencyConversionService.currencyConverter = Mock(CurrencyConverter){
+        currencyConversionService.currencyConverterCommand = Mock(CurrencyConverterCommand){
             getExchangeRate() >> new ExchangeRate(rate: new BigDecimal("0.8371"))
         }
 

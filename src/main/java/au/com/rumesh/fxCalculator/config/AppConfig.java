@@ -2,7 +2,7 @@ package au.com.rumesh.fxCalculator.config;
 
 import au.com.rumesh.fxCalculator.service.CurrencyConversionService;
 import au.com.rumesh.fxCalculator.service.CurrencyConversionServiceImpl;
-import au.com.rumesh.fxCalculator.service.handler.CurrencyConverter;
+import au.com.rumesh.fxCalculator.command.CurrencyConverterCommand;
 import au.com.rumesh.fxCalculator.ui.Console;
 import au.com.rumesh.fxCalculator.ui.ConsoleImpl;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +32,7 @@ public class AppConfig {
 
     @Bean
     @Transactional
-    public CurrencyConverter currencyConverter(){
-        return new CurrencyConverter();
+    public CurrencyConverterCommand currencyConverterCommand(){
+        return new CurrencyConverterCommand();
     }
 }

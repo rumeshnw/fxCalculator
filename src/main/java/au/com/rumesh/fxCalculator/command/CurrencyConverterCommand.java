@@ -1,4 +1,4 @@
-package au.com.rumesh.fxCalculator.service.handler;
+package au.com.rumesh.fxCalculator.command;
 
 import au.com.rumesh.fxCalculator.domain.Currency;
 import au.com.rumesh.fxCalculator.domain.ExchangeRate;
@@ -11,7 +11,7 @@ import org.springframework.util.Assert;
 /**
  * @author rnadeera
  */
-public class CurrencyConverter {
+public class CurrencyConverterCommand {
 
     @Autowired
     private ExchangeRateRepository exchangeRateRepository;

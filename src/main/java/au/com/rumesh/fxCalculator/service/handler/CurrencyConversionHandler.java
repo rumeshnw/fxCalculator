@@ -1,5 +1,6 @@
 package au.com.rumesh.fxCalculator.service.handler;
 
+import au.com.rumesh.fxCalculator.command.CurrencyConverterCommand;
 import au.com.rumesh.fxCalculator.config.ConversionResourceLocator;
 import au.com.rumesh.fxCalculator.domain.ExchangeRate;
 import au.com.rumesh.fxCalculator.enums.ConversionMatrix;
@@ -15,15 +16,15 @@ import java.math.MathContext;
  */
 public interface CurrencyConversionHandler {
 
-    BigDecimal convert(CurrencyConverter currencyConverter, BigDecimal rate);
+    BigDecimal convert(CurrencyConverterCommand currencyConverterCommand, BigDecimal rate);
 
     /**
      *
      * @return Concrete {@link CurrencyConversionHandler} to handle direct feed conversion
      */
     static CurrencyConversionHandler directConversion(){
-        return (currencyConverter, rate) -> {
-            ExchangeRate exchangeRate = currencyConverter.getExchangeRate();
+        return (currencyConverterCommand, rate) -> {
+            ExchangeRate exchangeRate = currencyConverterCommand.getExchangeRate();
             return rate.multiply(exchangeRate.getRate());
         };
     }
@@ -33,7 +34,7 @@ public interface CurrencyConversionHandler {
      * @return Concrete {@link CurrencyConversionHandler} to handle unity conversion
      */
     static CurrencyConversionHandler unityConversion(){
-        return (currencyConverter, rate) -> rate.multiply(BigDecimal.ONE);
+        return (currencyConverterCommand, rate) -> rate.multiply(BigDecimal.ONE);
     }
 
     /**
@@ -41,12 +42,12 @@ public interface CurrencyConversionHandler {
      * @return Concrete {@link CurrencyConversionHandler} to handle inverted conversion
      */
     static CurrencyConversionHandler invertConversion(){
-        return (currencyConverter, rate) -> {
-            ConversionMatrix intermediateConversionMatrix = ConversionMatrix.getConversionMatrix(currencyConverter.getCurrentConversionMatrix().getTermCurrency(),
-                    currencyConverter.getCurrentConversionMatrix().getBaseCurrency());
-            currencyConverter.setCurrentConversionMatrix(intermediateConversionMatrix);
+        return (currencyConverterCommand, rate) -> {
+            ConversionMatrix intermediateConversionMatrix = ConversionMatrix.getConversionMatrix(currencyConverterCommand.getCurrentConversionMatrix().getTermCurrency(),
+                    currencyConverterCommand.getCurrentConversionMatrix().getBaseCurrency());
+            currencyConverterCommand.setCurrentConversionMatrix(intermediateConversionMatrix);
 
-            ExchangeRate exchangeRate = currencyConverter.getExchangeRate();
+            ExchangeRate exchangeRate = currencyConverterCommand.getExchangeRate();
             return rate.multiply(BigDecimal.ONE.divide(exchangeRate.getRate(), MathContext.DECIMAL128));
         };
     }
@@ -57,19 +58,19 @@ public interface CurrencyConversionHandler {
      * @return Concrete {@link CurrencyConversionHandler} to handle cross via currency conversion
      */
     static CurrencyConversionHandler crossViaConversion(){
-        return (currencyConverter, rate) -> {
-            ConversionMatrix originalConversionMatrix = currencyConverter.getCurrentConversionMatrix();
+        return (currencyConverterCommand, rate) -> {
+            ConversionMatrix originalConversionMatrix = currencyConverterCommand.getCurrentConversionMatrix();
 
             ConversionMatrix intermediateConversionMatrix = ConversionMatrix.getConversionMatrix(originalConversionMatrix.getBaseCurrency(),
                     originalConversionMatrix.getCrossViaCurrency());
-            currencyConverter.setCurrentConversionMatrix(intermediateConversionMatrix);
+            currencyConverterCommand.setCurrentConversionMatrix(intermediateConversionMatrix);
 
-            BigDecimal intermediateRate = rate.multiply(ConversionResourceLocator.getConverter(intermediateConversionMatrix.getConversionType()).convert(currencyConverter, BigDecimal.ONE));
+            BigDecimal intermediateRate = rate.multiply(ConversionResourceLocator.getConverter(intermediateConversionMatrix.getConversionType()).convert(currencyConverterCommand, BigDecimal.ONE));
 
             intermediateConversionMatrix = ConversionMatrix.getConversionMatrix(originalConversionMatrix.getCrossViaCurrency(), originalConversionMatrix.getTermCurrency());
-            currencyConverter.setCurrentConversionMatrix(intermediateConversionMatrix);
+            currencyConverterCommand.setCurrentConversionMatrix(intermediateConversionMatrix);
 
-            return ConversionResourceLocator.getConverter(intermediateConversionMatrix.getConversionType()).convert(currencyConverter, intermediateRate);
+            return ConversionResourceLocator.getConverter(intermediateConversionMatrix.getConversionType()).convert(currencyConverterCommand, intermediateRate);
         };
     }
 }
