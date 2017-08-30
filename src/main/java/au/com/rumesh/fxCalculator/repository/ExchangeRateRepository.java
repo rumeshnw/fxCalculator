@@ -5,7 +5,7 @@ import au.com.rumesh.fxCalculator.domain.ExchangeRate;
 import org.springframework.data.repository.Repository;
 
 /**
- * Repository for {@link ExchangeRate} domain
+ * Repository to handle persistence operation for {@link ExchangeRate} domain
  *
  * @author rnadeera
  */

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 /**
+ * Command for holding data related to perform currency conversion
+ *
  * @author rnadeera
  */
 public class CurrencyConverterCommand {
@@ -39,7 +41,9 @@ public class CurrencyConverterCommand {
         this.currentConversionMatrix = currentConversionMatrix;
     }
 
-
+    /**
+     * return {@link ExchangeRate} of the base/term currency combination based on the current {@link ConversionMatrix}
+     */
     public ExchangeRate getExchangeRate() {
         Currency baseCurrency = currencyRepository.findByCode(currentConversionMatrix.getBaseCurrency());
         Assert.notNull(baseCurrency, "Unable to find base currency");

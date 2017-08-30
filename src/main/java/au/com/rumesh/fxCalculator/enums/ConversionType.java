@@ -1,7 +1,7 @@
 package au.com.rumesh.fxCalculator.enums;
 
 /**
- * Holds conversion types
+ * Holds currency conversion types
  *
  * @author rnadeera
  */

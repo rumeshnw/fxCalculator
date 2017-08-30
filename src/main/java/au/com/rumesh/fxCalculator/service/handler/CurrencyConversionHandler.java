@@ -10,15 +10,17 @@ import java.math.MathContext;
 
 
 /**
- * Interface for {@link au.com.rumesh.fxCalculator.domain.Currency} conversions
+ * Interface for facilitating different {@link au.com.rumesh.fxCalculator.domain.Currency} conversions
  *
  * @author rnadeera
  */
+@FunctionalInterface
 public interface CurrencyConversionHandler {
 
     BigDecimal convert(CurrencyConverterCommand currencyConverterCommand, BigDecimal rate);
 
     /**
+     * Strategy to handle direct feed base to term currency conversion
      *
      * @return Concrete {@link CurrencyConversionHandler} to handle direct feed conversion
      */
@@ -30,6 +32,7 @@ public interface CurrencyConversionHandler {
     }
 
     /**
+     * Strategy to handle unity currency conversion from base to term currency
      *
      * @return Concrete {@link CurrencyConversionHandler} to handle unity conversion
      */
@@ -38,8 +41,9 @@ public interface CurrencyConversionHandler {
     }
 
     /**
+     * Strategy to handle inverted currency conversion from base to term currency
      *
-     * @return Concrete {@link CurrencyConversionHandler} to handle inverted conversion
+     * @return Concrete {@link CurrencyConversionHandler} to handle invert conversion
      */
     static CurrencyConversionHandler invertConversion(){
         return (currencyConverterCommand, rate) -> {
@@ -54,6 +58,7 @@ public interface CurrencyConversionHandler {
 
 
     /**
+     * Strategy to handle currency conversion from base to term currency via cross currency
      *
      * @return Concrete {@link CurrencyConversionHandler} to handle cross via currency conversion
      */

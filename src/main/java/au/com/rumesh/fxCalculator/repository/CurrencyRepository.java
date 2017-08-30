@@ -4,7 +4,7 @@ import au.com.rumesh.fxCalculator.domain.Currency;
 import org.springframework.data.repository.Repository;
 
 /**
- * Repository for {@link Currency} domain
+ * Repository to handle persistence operation for {@link Currency} domain
  *
  * @author rnadeera
  */

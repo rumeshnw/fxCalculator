@@ -4,6 +4,8 @@ import au.com.rumesh.fxCalculator.enums.ConversionType;
 import au.com.rumesh.fxCalculator.service.handler.CurrencyConversionHandler;
 
 /**
+ * Class responsible for providing relevant strategy for currency conversion
+ *
  * @author rnadeera
  */
 public abstract class ConversionResourceLocator {
