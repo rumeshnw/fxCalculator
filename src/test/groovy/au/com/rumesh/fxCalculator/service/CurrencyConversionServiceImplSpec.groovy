@@ -8,6 +8,9 @@ import au.com.rumesh.fxCalculator.command.CurrencyConverterCommand
 import spock.lang.Specification
 import spock.lang.Unroll
 
+/**
+ * @author rnadeera
+ */
 class CurrencyConversionServiceImplSpec extends Specification {
 
     CurrencyConversionServiceImpl currencyConversionService

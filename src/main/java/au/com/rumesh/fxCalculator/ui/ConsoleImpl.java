@@ -14,7 +14,7 @@ public class ConsoleImpl implements Console {
     @Autowired
     private CurrencyConversionService currencyConversionService;
 
-    private static Pattern inputPattern = Pattern.compile("[A-Z]{3}\\s+\\d*(\\.\\d+)?+\\s+in+\\s+[A-Z]{3}");
+    private static Pattern conversionInputPattern = Pattern.compile("[A-Z]{3}\\s+\\d*(\\.\\d+)?+\\s+in+\\s+[A-Z]{3}");
 
     @Override
     public void start() {
@@ -41,7 +41,7 @@ public class ConsoleImpl implements Console {
     }
 
     private String performCurrencyConversion(String conversionInput){
-        if(!inputPattern.matcher(conversionInput).matches()){
+        if(!conversionInputPattern.matcher(conversionInput).matches()){
             return "Invalid currency conversion input. Sample input 'AUD 100.00 in USD' without quotes.";
         }
 

@@ -4,6 +4,11 @@ import au.com.rumesh.fxCalculator.domain.Currency;
 import au.com.rumesh.fxCalculator.domain.ExchangeRate;
 import org.springframework.data.repository.Repository;
 
+/**
+ * Repository for {@link ExchangeRate} domain
+ *
+ * @author rnadeera
+ */
 public interface ExchangeRateRepository extends Repository<ExchangeRate, Long> {
 
     ExchangeRate findByBaseCurrencyAndTermCurrency(Currency baseCurrency, Currency termCurrency);

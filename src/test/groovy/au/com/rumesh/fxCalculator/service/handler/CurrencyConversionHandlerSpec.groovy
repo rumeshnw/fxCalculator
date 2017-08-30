@@ -8,6 +8,9 @@ import spock.lang.Specification
 
 import java.math.MathContext
 
+/**
+ * @author rnadeera
+ */
 class CurrencyConversionHandlerSpec extends Specification {
 
     def "test directConversion, should apply direct conversion strategy and return exchange rate for base/term currency combination"(){

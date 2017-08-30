@@ -4,6 +4,9 @@ import au.com.rumesh.fxCalculator.service.CurrencyConversionService
 import spock.lang.Specification
 import spock.lang.Unroll
 
+/**
+ * @author rnadeera
+ */
 class ConsoleImplSpec extends Specification {
 
     ConsoleImpl consoleImpl

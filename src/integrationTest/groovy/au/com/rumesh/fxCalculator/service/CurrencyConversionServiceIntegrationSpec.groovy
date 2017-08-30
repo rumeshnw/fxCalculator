@@ -6,6 +6,9 @@ import org.springframework.test.annotation.Rollback
 import org.springframework.transaction.annotation.Transactional
 import spock.lang.Unroll
 
+/**
+ * @author rnadeera
+ */
 @Transactional
 @Rollback
 class CurrencyConversionServiceIntegrationSpec extends BaseIntegrationSpec {

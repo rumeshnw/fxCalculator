@@ -36,6 +36,10 @@ Sample Input and output as follows,
      
      USD 200 in JPY ==> USD 200 = JPY 23990
      
+If user input is invalid then system will show following message,
+
+`Invalid currency conversion input. Sample input 'AUD 100.00 in USD' without quotes.`
+     
 If system cannot calculate the exchange rate for the given Base/Term currency combination, following message will be displayed.
 
 `Unable to find Rate for <base currency>/<term currency>`

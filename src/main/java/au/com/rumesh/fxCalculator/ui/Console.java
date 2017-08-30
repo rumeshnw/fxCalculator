@@ -45,7 +45,7 @@ public interface Console {
             message = e.getMessage();
         } else {
             logger.error("System Error", e);
-            message = "Application malfunctioned.  Please contact Administrator.";
+            message = "Application malfunctioned. Please contact Administrator.";
         }
         return message;
     }

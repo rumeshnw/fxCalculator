@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.annotation.Rollback
 import org.springframework.transaction.annotation.Transactional
 
+/**
+ * @author rnadeera
+ */
 @Transactional
 @Rollback
 class CurrencyConversionHandlerIntegrationSpec extends BaseIntegrationSpec {

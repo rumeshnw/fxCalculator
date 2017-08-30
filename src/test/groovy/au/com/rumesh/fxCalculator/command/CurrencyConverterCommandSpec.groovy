@@ -8,6 +8,9 @@ import au.com.rumesh.fxCalculator.repository.ExchangeRateRepository
 import spock.lang.Specification
 import spock.lang.Unroll
 
+/**
+ * @author rnadeera
+ */
 class CurrencyConverterCommandSpec extends Specification {
 
     @Unroll
