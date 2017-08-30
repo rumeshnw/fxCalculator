@@ -1,4 +1,4 @@
-#FX Calculator
+##FX Calculator
 
 This system uses Maven build system(version 3.1.1). In order to use this application or run any of the below commands, you should fulfill following requirements.
 
@@ -36,7 +36,7 @@ Sample Input and output as follows,
      
      USD 200 in JPY ==> USD 200 = JPY 23990
      
-If system cannot calculate the exchange rate for the give Base/Term currency combination, following message will be displayed.
+If system cannot calculate the exchange rate for the given Base/Term currency combination, following message will be displayed.
 
 `Unable to find Rate for <base currency>/<term currency>`
      
